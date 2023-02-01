@@ -24,9 +24,9 @@ func main() {
 
 	s := grpc.NewServer()
 
-	fireflySvc := wire.InitialiseTodoService()
+	todoSvc := wire.InitialiseTodoService()
 
-	pb.RegisterTodoServiceServer(s, fireflySvc)
+	pb.RegisterTodoServiceServer(s, todoSvc)
 
 	log.Printf("server listening at %v", lis.Addr())
 
