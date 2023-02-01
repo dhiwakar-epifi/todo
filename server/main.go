@@ -7,7 +7,7 @@ import (
 	pb "example.com/grpc-todo/proto"
 	"google.golang.org/grpc"
 
-	wire "example.com/grpc-todo/wire"
+	"example.com/grpc-todo/wire"
 )
 
 const (

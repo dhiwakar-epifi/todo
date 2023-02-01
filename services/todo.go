@@ -2,6 +2,7 @@ package crudTodo
 
 import (
 	"context"
+	"example.com/grpc-todo/dao"
 	pb "example.com/grpc-todo/proto"
 	"github.com/google/uuid"
 	"log"
@@ -9,10 +10,13 @@ import (
 
 type TodoService struct {
 	pb.UnimplementedTodoServiceServer
+	todoDao dao.TodoDao
 }
 
-func NewTodoService() *TodoService {
-	return &TodoService{}
+func NewTodoService(todoDao dao.TodoDao) *TodoService {
+	return &TodoService{
+		todoDao: todoDao,
+	}
 }
 
 func (s *TodoService) CreateTodo(ctx context.Context, in *pb.NewTodo) (*pb.Todo, error) {
@@ -23,6 +27,7 @@ func (s *TodoService) CreateTodo(ctx context.Context, in *pb.NewTodo) (*pb.Todo,
 		Done:        false,
 		Id:          uuid.New().String(),
 	}
+	s.todoDao.Create(ctx, todo)
 
 	return todo, nil
 }
